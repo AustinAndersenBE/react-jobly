@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchCompanies } from '../store/slices/companiesSlice'
 import CompanyCard from './CompanyCard';
 import SearchBar from './SearchBar';
+import { Link } from 'react-router-dom';
 
 const Companies = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,9 @@ const Companies = () => {
       <div className="companies-list">
         {/* Map over companies array and render a CompanyCard for each company */}
         {companies.map((company) => (
-          <CompanyCard key={company.handle} company={company} />
+          <Link to={`/companies/${company.handle}`} key={company.handle}>
+            <CompanyCard company={company} />
+          </Link>
         ))}
       </div>
     </div>

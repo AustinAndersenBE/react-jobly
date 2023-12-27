@@ -1,0 +1,19 @@
+.company-detail {
+  margin: 20px;
+}
+
+.company-info {
+  background-color: #f2f2f2; 
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.company-name {
+  color: #333; 
+  margin-bottom: 10px;
+}
+
+.company-description {
+  color: #666; 
+}

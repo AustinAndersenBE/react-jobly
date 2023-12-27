@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 import JoblyApi from '../../api';
 
 // Async thunk for user login
@@ -65,9 +64,19 @@ export const updateUserProfile = createAsyncThunk(
   }
 );
 
+const getUserFromStorage = () => {
+  const user = localStorage.getItem('user');
+  return user ? JSON.parse(user) : null;
+};
+
+const getTokenFromStorage = () => {
+  const token = localStorage.getItem('token');
+  return token ? token : null;
+};
+
 const initialState = {
-  user: null,
-  token: null,
+  user: getUserFromStorage(),
+  token: getTokenFromStorage(),
   isLoading: false,
   error: null,
 };
@@ -80,7 +89,8 @@ const authSlice = createSlice({
       state.user = null;
       state.token = null;
       localStorage.removeItem('token');
-    },
+      localStorage.removeItem('user');
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -111,8 +121,9 @@ const authSlice = createSlice({
       })
       .addCase(fetchUserProfile.fulfilled, (state, action) => {
         state.user = action.payload.user;
+        localStorage.setItem('user', JSON.stringify(action.payload.user)); // Save user data to local storage
         state.isLoading = false;
-      })
+      })      
       .addCase(fetchUserProfile.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;

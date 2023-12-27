@@ -7,14 +7,16 @@ import Companies from './components/Companies';
 import CompanyDetail from './components/CompanyDetail';
 import Jobs from './components/Jobs';
 import Login from './components/Login';
-import Signup from './components/Signup';
+import SignUp from './components/SignUp';
 import Profile from './components/Profile';
 import HomePage from './components/HomePage';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { GuestRoute } from './components/GuestRoute';
+import { ProtectedRoute } from './components/ProtectedRoute';
+
 
 function Layout({ children }) {
   return (
-    <div style={{ backgroundColor: 'white' }}>
+    <div>
       <NavBar />
       {children}
     </div>
@@ -28,12 +30,12 @@ function App() {
         <Layout>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/companies" element={<Companies />} />
-            <Route path="/companies/:handle" element={<CompanyDetail />} />
-            <Route path="/jobs" element={<Jobs />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/companies" element={<ProtectedRoute><Companies /></ProtectedRoute>} />
+            <Route path="/companies/:handle" element={<ProtectedRoute><CompanyDetail /></ProtectedRoute>} />
+            <Route path="/jobs" element={<ProtectedRoute><Jobs /></ProtectedRoute>} />
+            <Route path="/login" element={<Login />} /> 
+            <Route path="/signup" element={<GuestRoute><SignUp /></GuestRoute>} />
+            <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           </Routes>
         </Layout>
       </Router>

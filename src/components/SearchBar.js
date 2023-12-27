@@ -30,6 +30,7 @@ const SearchBar = () => {
   };
 
   return (
+    // RHF calls handleSearch with form data once form is submitted
     <form onSubmit={handleSubmit(handleSearch)} className="search-bar">
       <input
         {...register('searchTerm')}

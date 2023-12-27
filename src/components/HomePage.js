@@ -1,24 +1,14 @@
 import React from 'react';
-import { useSelector } from 'react-redux'; 
-import Button from './Button'; 
-import SignUpForm from './SignUpForm'; // 
-import LoginForm from './LoginForm'; // 
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom'; 
+import Button from './Button';
+import './HomePage.css';
 
 function HomePage() {
-  const [showForm, setShowForm] = useState(null); 
-  const token = useSelector(state => state.auth.token); 
-  const user = useSelector(state => state.auth.user); 
+  const token = useSelector(state => state.auth.token);
+  const user = useSelector(state => state.auth.user);
 
-  const handleShowSignUpForm = () => {
-    setShowForm('signup'); // Show the sign-up form when the button is clicked
-  };
-
-  const handleShowLoginForm = () => {
-    setShowForm('login');
-  };
-
-
-  if (token) {
+  if (token && user) {
     // Content for logged-in users
     return (
       <div className="text-center mt-5">
@@ -32,14 +22,12 @@ function HomePage() {
       <div className="text-center mt-5">
         <h1>Jobly</h1>
         <p>All the jobs in one, convenient place.</p>
-        {showForm === null && (
-          <>
-            <Button text="Log in" className="btn btn-primary" onClick={handleShowLoginForm} />
-            <Button text="Sign Up" className="btn btn-secondary" onClick={handleShowSignUpForm} />
-          </>
-        )}
-        {showForm === 'signup' && <SignUpForm />}
-        {showForm === 'login' && <LoginForm />}
+        <Link to="/login">
+          <Button text="Log in" className="btn btn-primary" />
+        </Link>
+        <Link to="/signup">
+          <Button text="Sign Up" className="btn btn-secondary" />
+        </Link>
       </div>
     );
   }

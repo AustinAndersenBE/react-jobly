@@ -14,8 +14,22 @@ export const fetchCompanies = createAsyncThunk(
   }
 );
 
+export const fetchCompany = createAsyncThunk(
+  'companies/fetchCompany',
+  async (handle, { rejectWithValue }) => {
+    try {
+      const company = await JoblyApi.getCompany(handle);
+      return company;
+    } catch (error) {
+      console.error('Error fetching company:', error);
+      return rejectWithValue('An error occurred while fetching the company.');
+    }
+  }
+);
+
 const initialState = {
   companies: [],
+  currentCompany: null,
   isLoading: false,
   error: null
 };
@@ -36,6 +50,19 @@ const companiesSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchCompanies.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchCompany.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchCompany.fulfilled, (state, action) => {
+        state.currentCompany = action.payload;
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(fetchCompany.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       });

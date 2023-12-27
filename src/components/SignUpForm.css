@@ -1,6 +1,19 @@
+.sign-up-form-container {
+  width: 100%;
+  margin: 0 auto; 
+}
 
-.sign-up-form-container h2 {
-  margin-bottom: 20px;
-  font-size: 24px;
-  color: #000000; 
+.sign-up-form-container input,
+.sign-up-form-container button[type="submit"] {
+  width: 100%;
+  padding: 10px; 
+  margin-bottom: 2rem; 
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; 
+  font-weight: bold;
+}
+
+.sign-up-form-container form {
+  margin-top: 0;
 }

@@ -2,8 +2,9 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useDispatch } from 'react-redux'; // import useDispatch
-import { registerUser } from '../store/slices/authSlice'; // import registerUser action
+import { useDispatch } from 'react-redux';
+import { registerUser } from '../store/slices/authSlice';
+import { useNavigate } from 'react-router-dom'; // Changed from useHistory to useNavigate
 import './SignUpForm.css';
 
 // Define validation schema with Yup
@@ -16,19 +17,23 @@ const schema = yup.object().shape({
 });
 
 const SignUpForm = () => {
-
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // Changed from useHistory to useNavigate
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (values) => {
-    dispatch(registerUser(values)); 
+  const onSubmit = async (values) => {
+    try {
+      await dispatch(registerUser(values));
+      navigate('/');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <div className="sign-up-form-container"> 
-      <h2 className="text-center">Sign Up</h2> {/* heading for the form */}
       <form onSubmit={handleSubmit(onSubmit)} className="text-center mt-5"> 
         <input {...register('username')} placeholder="Username" />
         <p>{errors.username?.message}</p>
