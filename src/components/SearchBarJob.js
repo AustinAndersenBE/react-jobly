@@ -38,7 +38,7 @@ const SearchBarJob = () => {
   return (
     <form onSubmit={handleSubmit(handleSearch)} className="search-bar-job">
       <input
-        {...register('title')} // if we didn't use register, we would have to useState and set the value of the input to the state, and onChange we would have to update the state
+        {...register('title')} // if we didn't use register, we would have to useState and set the value of the input to the state, and onChange we would have to update the state.
         type="text"
         placeholder="Enter job title..."
         className="search-input"
