@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../store/slices/authSlice';
-import { useNavigate } from 'react-router-dom'; // Changed from useHistory to useNavigate
+import { useNavigate } from 'react-router-dom'; 
 import './SignUpForm.css';
 
 // Define validation schema with Yup
@@ -18,7 +18,7 @@ const schema = yup.object().shape({
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // Changed from useHistory to useNavigate
+  const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
   });
