@@ -9,6 +9,8 @@ const Companies = () => {
   const dispatch = useDispatch();
   const { companies, isLoading, error } = useSelector((state) => state.companies);
 
+  // useEffect dispatches fetchCompanies when component mounts
+  // dispatch is a dependency to satisfy the linter
   useEffect(() => {
     dispatch(fetchCompanies());
   }, [dispatch]);

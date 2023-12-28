@@ -13,7 +13,9 @@ import HomePage from './components/HomePage';
 import { GuestRoute } from './components/GuestRoute';
 import { ProtectedRoute } from './components/ProtectedRoute';
 
-
+/**
+ * Layout component to make sure the NavBar is in every route
+ */
 function Layout({ children }) {
   return (
     <div>
@@ -33,7 +35,7 @@ function App() {
             <Route path="/companies" element={<ProtectedRoute><Companies /></ProtectedRoute>} />
             <Route path="/companies/:handle" element={<ProtectedRoute><CompanyDetail /></ProtectedRoute>} />
             <Route path="/jobs" element={<ProtectedRoute><Jobs /></ProtectedRoute>} />
-            <Route path="/login" element={<Login />} /> 
+            <Route path="/login" element={<GuestRoute><Login /></GuestRoute>} />
             <Route path="/signup" element={<GuestRoute><SignUp /></GuestRoute>} />
             <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           </Routes>

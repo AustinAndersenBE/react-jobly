@@ -26,6 +26,11 @@ const ProfileForm = () => {
     }
   });
 
+
+  /**
+   * Handles the form submission.
+   * @param {Object} data - The form data.
+   */
   const onSubmit = (data) => {
     const updateData = {};
   

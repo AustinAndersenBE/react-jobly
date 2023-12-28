@@ -6,6 +6,9 @@ import { useDispatch } from 'react-redux';
 import { fetchCompanies } from '../store/slices/companiesSlice';
 import './SearchBar.css';
 
+
+//search bar is used in companies
+
 // Define validation schema with Yup
 const schema = yup.object().shape({
   searchTerm: yup.string().min(1, 'Must be 1 character or more'),
@@ -33,7 +36,7 @@ const SearchBar = () => {
     // RHF calls handleSearch with form data once form is submitted
     <form onSubmit={handleSubmit(handleSearch)} className="search-bar">
       <input
-        {...register('searchTerm')}
+        {...register('searchTerm')} // if we didn't use register, we would have to useState and set the value of the input to the state, and onChange we would have to update the state
         type="text"
         placeholder="Enter company name..."
         className="search-input"
