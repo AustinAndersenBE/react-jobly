@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateUserProfile } from '../store/slices/authSlice';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -14,8 +14,9 @@ const profileSchema = yup.object({
 });
 
 
-const ProfileForm = ({ user }) => {
+const ProfileForm = () => {
   const dispatch = useDispatch();
+  const user = useSelector(state => state.auth.user);
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(profileSchema),
     defaultValues: {
@@ -26,8 +27,23 @@ const ProfileForm = ({ user }) => {
   });
 
   const onSubmit = (data) => {
-    // we also pass in the username because the api route uses it
-    dispatch(updateUserProfile({ username: user.username, updateData: data }));
+    const updateData = {};
+  
+    if (data.firstName !== user.firstName) {
+      updateData.firstName = data.firstName;
+    }
+  
+    if (data.lastName !== user.lastName) {
+      updateData.lastName = data.lastName;
+    }
+  
+    if (data.email !== user.email) {
+      updateData.email = data.email;
+    }
+  
+    if (Object.keys(updateData).length > 0) {
+      dispatch(updateUserProfile({ username: user.username, updateData }));
+    }
   };
 
   return (

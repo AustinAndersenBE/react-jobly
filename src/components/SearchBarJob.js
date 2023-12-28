@@ -25,7 +25,6 @@ const SearchBarJob = () => {
       hasEquity: data.hasEquity,
     };
     dispatch(fetchJobs(filters));
-    reset();
   };
 
   return (
@@ -52,6 +51,7 @@ const SearchBarJob = () => {
         Has Equity
       </label>
       {errors.hasEquity && <p>{errors.hasEquity.message}</p>}
+      <button type="submit" className="search-button">Search</button>
     </form>
   );
 };
